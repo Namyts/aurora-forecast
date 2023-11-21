@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import classes from './App.module.css'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
-import ForecastSelector from './ForecastSelector/ForecastSelector.js'
 
 const sliderMin = 1
 const sliderMax = 66
@@ -10,7 +9,7 @@ const sliderMax = 66
 const getStartDate = () => {
 	let date = new Date()
 	const currentHours = date.getHours()
-	date.setHours(currentHours - 7)
+	date.setHours(12)
 	date.setMinutes(0)
 	date.setSeconds(0)
 	date.setMilliseconds(0)
@@ -21,6 +20,14 @@ const getCurrentDate = (forecastSlider=1) => {
 	const d = getStartDate()
 	d.setHours(d.getHours() + forecastSlider)
 	return d
+}
+
+
+const forecastOptions = {
+	lowmid: 'Low/Mid',
+	low: 'Low',
+	mid: 'Mid',
+	high: 'High'
 }
 
 const getForecastImage = (slider, type) => {
@@ -57,21 +64,30 @@ const getMarks = () => {
 			marks.push([i,getDayName(getCurrentDate(i))])
 		}
 	}
-	const style = {color: "red"}
+	const style = {color: "white"}
 	return Object.fromEntries(marks.map(m=>[m[0],{style, label:m[1]}]))
 }
 
 const App = () => {
 
+	const cycleForecastType = () => {
+		const fi  = Object.keys(forecastOptions).indexOf(forecastType)
+		const nfi = (fi + 1) % Object.keys(forecastOptions).length
+		setForecastType(Object.keys(forecastOptions)[nfi])
+	}
+
 	const [forecastSlider, setForecastSlider] = useState(1)
 	const [forecastType, setForecastType] = useState('lowmid')
-
 
 	return (
 		<div className={classes['container']}>
 			<div className={classes['header']}>
-				<ForecastSelector forecastType={forecastType} setForecastType={setForecastType}/>
-				<div className={classes['date']}>{formatDate(getCurrentDate(forecastSlider))}</div>
+				<div className={classes['menu']} onClick={cycleForecastType}>
+					<div className={classes['text']}>🔁{forecastOptions[forecastType]}</div>
+				</div>
+				<div className={classes['date']}>
+				<div className={classes['text']}>{formatDate(getCurrentDate(forecastSlider))}</div>
+				</div>
 			</div>
 			<div className={classes['image-container']} >
 				<img className={classes['image']} src={getForecastImage(forecastSlider, forecastType)}/>

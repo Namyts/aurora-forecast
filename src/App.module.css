@@ -20,10 +20,35 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	text-align: center;
+	user-select: none;
+
+	gap: 30px 40px;
 }
-.date{
-	width: 100%;
+.text{
+	text-align: center;
+	padding: 0px 10vw;
+}
+
+.menu{
 	height: 100%;
+	cursor: pointer;
+	transition: all 1s ease;
+	border-radius: 5px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.menu:hover{
+	background-color: #111316;
+}
+
+.date{
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .drawer-container{
@@ -38,8 +63,10 @@
 	
 }
 .image{
+	object-fit: contain;
+	max-width: 100vw;
 	height: 100%;
-	clip-path: inset(28px 0px 40px 0px);
+	clip-path: inset(3.5% 0px 5% 0px);
 }
 
 
