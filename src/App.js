@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import classes from './App.module.css'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import './sliderOverrides.css'
 
 const sliderMin = 1
 const sliderMax = 66
@@ -9,7 +10,10 @@ const sliderMax = 66
 const getStartDate = () => {
 	let date = new Date()
 	const currentHours = date.getHours()
-	date.setHours(12)
+	const detectionHours = [18,12,6,0]
+	const websiteUpdateTime = 2
+	const detectionHour = detectionHours.find(dh=>currentHours-websiteUpdateTime>=dh)
+	date.setHours(detectionHour)
 	date.setMinutes(0)
 	date.setSeconds(0)
 	date.setMilliseconds(0)
@@ -68,6 +72,15 @@ const getMarks = () => {
 	return Object.fromEntries(marks.map(m=>[m[0],{style, label:m[1]}]))
 }
 
+const preloadImages = () => {
+	Object.keys(forecastOptions).forEach(fo=>{
+		for(let i=sliderMin; i<sliderMax; i++){
+			const img = new Image()
+			img.src = getForecastImage(i,fo)
+		}
+	})
+}
+
 const App = () => {
 
 	const cycleForecastType = () => {
@@ -78,6 +91,8 @@ const App = () => {
 
 	const [forecastSlider, setForecastSlider] = useState(1)
 	const [forecastType, setForecastType] = useState('lowmid')
+
+	useEffect(()=>preloadImages(),[])
 
 	return (
 		<div className={classes['container']}>
