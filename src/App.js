@@ -32,7 +32,7 @@ const getForecastImage = (d, slider=1, type='lowmid') => {
 	if(!d){return ''}
 
 	if(type==='aurora'){
-		d = addMinutes(d,sliderToMinutes(slider-12))	
+		d = addMinutes(d,sliderToMinutes(slider-12)) //this is assuming a 60 minute Forecast Lead Time
 		if(!d){return ''}
 		let url = `https://services.swpc.noaa.gov/images/animations/ovation/north`
 		url += `/aurora_N_${d.getFullYear().toString()}-${d.getMonth()+1}-${d.getDate()}_${d.getHours().toString().padStart(2,'0')}${d.getMinutes().toString().padStart(2,'0')}.jpg`
