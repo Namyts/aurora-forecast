@@ -1,4 +1,4 @@
-# 🇮🇸 Aurora tracker
+# 🇮🇸 Aurora Tracker
 
 [Click here to view the site!](https://namyts.github.io/aurora-forecast/)
 
