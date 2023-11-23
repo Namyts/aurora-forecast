@@ -93,6 +93,7 @@ const App = () => {
 		const fi  = types.indexOf(forecastType)
 		const nfi = (fi + 1) % types.length
 		setForecastType(types[nfi])
+		if(window.refreshToUpdate === true){location.reload()} //reload page if there are any updates
 	}
 
 	const formatDateText = d => d && `${getDayName(d)} ${d.getHours()}:00`
