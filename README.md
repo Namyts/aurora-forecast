@@ -1,4 +1,4 @@
-# 🇮🇸 Clouds
+# 🇮🇸 Aurora tracker
 
 [Click here to view the site!](https://namyts.github.io/aurora-forecast/)
 
