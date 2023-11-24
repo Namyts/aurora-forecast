@@ -45,12 +45,11 @@ const getForecastImage = (d, slider=1, type='lowmid') => {
 	}
 }
 
-const preloadImages = d => {
-	forecastOptions.forEach(fo=>{
-		for(let i=fo.sMin; i<fo.sMax; i++){
-			loadImage(getForecastImage(d,i,fo.id))
-		}
-	})
+const preloadImages = (ft, d) => {
+	const fo = forecastOptions.find(fo=>fo.id===ft)
+	for(let i=fo.sMin; i<fo.sMax; i++){
+		loadImage(getForecastImage(d,i,fo.id))
+	}
 }
 
 const determineCloudForecastStart = () => {
@@ -102,7 +101,7 @@ const App = () => {
 
 	useEffect(()=>{
 		if((forecastType!=='aurora' && cloudForecastStart) || forecastType==='aurora'){
-			preloadImages(cloudForecastStart, forecastType)
+			preloadImages(forecastType, cloudForecastStart)
 		}
 	},[cloudForecastStart,forecastType])
 
