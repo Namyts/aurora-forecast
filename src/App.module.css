@@ -75,6 +75,18 @@
 	max-height: 80vh;
 }
 
+.lowmid-image{
+	filter: invert() hue-rotate(325deg);
+}
+.low-image{
+	filter: invert() hue-rotate(165deg);
+}
+.mid-image{
+	filter: invert() hue-rotate(72deg);
+}
+.high-image{
+	filter: invert() hue-rotate(78deg);
+}
 
 .slider-container{
 	display: flex;

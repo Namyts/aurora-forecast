@@ -6,11 +6,11 @@ import './sliderOverrides.css'
 
 
 const forecastOptions = [
-	{id: 'lowmid', text: 'Low/Mid', url: 'isl_skyjahula2', sMin: 1, sMax: 66},
-	{id: 'low', text: 'Low', url: 'harmonie_island_lcc', sMin: 1, sMax: 66},
-	{id: 'mid', text: 'Mid', url: 'harmonie_island_mcc', sMin: 1, sMax: 66},
-	{id: 'high', text: 'High', url: 'harmonie_island_hcc', sMin: 1, sMax: 66},
-	{id: 'aurora', text: 'Aurora', url: '', sMin: 1, sMax: 12}
+	{id: 'lowmid', text: 'Low/Mid', url: 'isl_skyjahula2', sMin: 1, sMax: 66, class: classes['lowmid-image']},
+	{id: 'aurora', text: 'Aurora', url: '', sMin: 1, sMax: 12, class: classes['aurora-image']},
+	{id: 'low', text: 'Low', url: 'harmonie_island_lcc', sMin: 1, sMax: 66, class: classes['low-image']},
+	{id: 'mid', text: 'Mid', url: 'harmonie_island_mcc', sMin: 1, sMax: 66, class: classes['mid-image']},
+	{id: 'high', text: 'High', url: 'harmonie_island_hcc', sMin: 1, sMax: 66, class: classes['high-image']}
 ]
 
 const addHours = (d,h=1) => d && new Date(new Date(d).setHours(d.getHours()+h))
@@ -101,7 +101,7 @@ const App = () => {
 
 	useEffect(()=>{
 		if((forecastType!=='aurora' && cloudForecastStart) || forecastType==='aurora'){
-			preloadImages(forecastType, cloudForecastStart)
+			preloadImages(forecastType, forecastStart)
 		}
 	},[cloudForecastStart,forecastType])
 
@@ -165,7 +165,7 @@ const App = () => {
 				{status === 'error' && <div className={classes['text']}>Error!</div>}
 				{status === 'ok' && (
 					<img
-						className={`${classes['image']} ${forecastType === 'aurora' ? classes['aurora-image'] : classes['cloud-image']}`}
+						className={`${classes['image']} ${forecastOptions.find(fo=>fo.id===forecastType)?.class}`}
 						src={getForecastImage(forecastStart,forecastSlider,forecastType)}
 					/>
 				)}
