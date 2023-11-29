@@ -46,10 +46,12 @@ const getForecastImage = (d, slider=1, type='lowmid') => {
 }
 
 const preloadImages = (ft, d) => {
+	const imagePromises = []
 	const fo = forecastOptions.find(fo=>fo.id===ft)
 	for(let i=fo.sMin; i<fo.sMax; i++){
-		loadImage(getForecastImage(d,i,fo.id))
+		imagePromises.push(loadImage(getForecastImage(d,i,fo.id)))
 	}
+	return Promise.all(imagePromises)
 }
 
 const determineCloudForecastStart = () => {
@@ -90,6 +92,7 @@ const App = () => {
 	const [status, setStatus] = useState('loading')
 	const [forecastSlider, setForecastSlider] = useState(1)
 	const [forecastType, setForecastType] = useState('lowmid')
+	const [preloaded, setPreloaded] = useState([])
 
 	useEffect(()=>{forecastType==='aurora' && setForecastSlider(1)},[forecastType])
 
@@ -101,7 +104,12 @@ const App = () => {
 
 	useEffect(()=>{
 		if((forecastType!=='aurora' && cloudForecastStart) || forecastType==='aurora'){
-			preloadImages(forecastType, forecastStart)
+			if(!preloaded.includes(forecastType)){
+				setStatus('loading')
+				setPreloaded([...preloaded, forecastType])
+				preloadImages(forecastType, forecastStart).then(()=>{setStatus('ok')})
+			}
+			
 		}
 	},[cloudForecastStart,forecastType])
 
