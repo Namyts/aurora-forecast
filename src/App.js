@@ -6,7 +6,7 @@ import './sliderOverrides.css'
 
 const forecastOptions = [
 	{id: 'lowmid', text: 'Low/Mid', url: 'isl_skyjahula2', sMin: 1, sMax: 66, class: "clip-image invert hue-rotate-[325deg]"},
-	{id: 'aurora', text: 'Aurora', url: '', sMin: 1, sMax: 12, class: "max-w-[80vh]"},
+	{id: 'aurora', text: 'Aurora', url: '', sMin: 1, sMax: 12, class: "md:max-w-[80vh]"},
 	{id: 'low', text: 'Low', url: 'harmonie_island_lcc', sMin: 1, sMax: 66, class: "clip-image invert hue-rotate-[165deg]"},
 	{id: 'mid', text: 'Mid', url: 'harmonie_island_mcc', sMin: 1, sMax: 66, class: "clip-image invert hue-rotate-[72deg]"},
 	{id: 'high', text: 'High', url: 'harmonie_island_hcc', sMin: 1, sMax: 66, class: "clip-image invert hue-rotate-[78deg]"}
@@ -172,7 +172,7 @@ const App = () => {
 				{status === 'error' && <div className="">Error!</div>}
 				{status === 'ok' && (
 					<img
-						className={`object-contain max-w-[100vw] h-full ${forecastOptions.find(fo=>fo.id===forecastType)?.class}`}
+						className={`object-contain ${forecastOptions.find(fo=>fo.id===forecastType)?.class}`}
 						src={getForecastImage(forecastStart,forecastSlider,forecastType)}
 					/>
 				)}
