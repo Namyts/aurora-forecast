@@ -17,7 +17,9 @@
     "clean": "npx --yes rimraf build node_modules package-lock.json"
   },
   "devDependencies": {
-    "gh-pages": "^6.1.0"
+    "gh-pages": "^6.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "tailwindcss": "^3.3.5"
   },
   "browserslist": {
     "production": [

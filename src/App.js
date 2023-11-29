@@ -1,16 +1,15 @@
 import React, {useEffect, useMemo, useState} from 'react'
-import classes from './App.module.css'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import './sliderOverrides.css'
 
 
 const forecastOptions = [
-	{id: 'lowmid', text: 'Low/Mid', url: 'isl_skyjahula2', sMin: 1, sMax: 66, class: classes['lowmid-image']},
-	{id: 'aurora', text: 'Aurora', url: '', sMin: 1, sMax: 12, class: classes['aurora-image']},
-	{id: 'low', text: 'Low', url: 'harmonie_island_lcc', sMin: 1, sMax: 66, class: classes['low-image']},
-	{id: 'mid', text: 'Mid', url: 'harmonie_island_mcc', sMin: 1, sMax: 66, class: classes['mid-image']},
-	{id: 'high', text: 'High', url: 'harmonie_island_hcc', sMin: 1, sMax: 66, class: classes['high-image']}
+	{id: 'lowmid', text: 'Low/Mid', url: 'isl_skyjahula2', sMin: 1, sMax: 66, class: "clip-image invert hue-rotate-[325deg]"},
+	{id: 'aurora', text: 'Aurora', url: '', sMin: 1, sMax: 12, class: "max-w-[80vh]"},
+	{id: 'low', text: 'Low', url: 'harmonie_island_lcc', sMin: 1, sMax: 66, class: "clip-image invert hue-rotate-[165deg]"},
+	{id: 'mid', text: 'Mid', url: 'harmonie_island_mcc', sMin: 1, sMax: 66, class: "clip-image invert hue-rotate-[72deg]"},
+	{id: 'high', text: 'High', url: 'harmonie_island_hcc', sMin: 1, sMax: 66, class: "clip-image invert hue-rotate-[78deg]"}
 ]
 
 const addHours = (d,h=1) => d && new Date(new Date(d).setHours(d.getHours()+h))
@@ -155,32 +154,31 @@ const App = () => {
 	},[forecastStart,sliderMin,sliderMax,forecastType])
 
 	return (
-		<div className={classes['container']}>
-			<div className={classes['header']}>
-				<div className={classes['menu']} onClick={cycleForecastType}>
-					<div className={classes['text']}>
+		<div className="box-border bg-gray-800 w-full h-screen min-w-full min-h-full flex flex-col justify-between items-stretch text-white select-none gap-y-2 p-2 pb-12">
+			<div className="flex items-center justify-between">
+				<div className="transition duration-500 hover:bg-gray-900  cursor-pointer rounded" onClick={cycleForecastType}>
+					<div className="text-xl xl:text-3xl px-6 py-2 xl:px-20 xl:py-4">
 						🔁{forecastOptions.find(fo=>fo.id===forecastType)?.text}
 					</div>
 				</div>
-				<div className={classes['date']}>
-					<div className={classes['text']}>
+				<div className="">
+					<div className="text-xl xl:text-3xl px-6 py-2 xl:px-20 xl:py-4">
 						{formatDateText(forecastType==='aurora' ? addMinutes(forecastStart,sliderToMinutes(forecastSlider)) : addHours(forecastStart,forecastSlider))}
 					</div>
 				</div>
 			</div>
-			<div className={classes['image-container']}>
-				{status === 'loading' && <div className={classes['text']}>Loading...</div>}
-				{status === 'error' && <div className={classes['text']}>Error!</div>}
+			<div className="flex justify-center items-center">
+				{status === 'loading' && <div className="">Loading...</div>}
+				{status === 'error' && <div className="">Error!</div>}
 				{status === 'ok' && (
 					<img
-						className={`${classes['image']} ${forecastOptions.find(fo=>fo.id===forecastType)?.class}`}
+						className={`object-contain max-w-[100vw] h-full ${forecastOptions.find(fo=>fo.id===forecastType)?.class}`}
 						src={getForecastImage(forecastStart,forecastSlider,forecastType)}
 					/>
 				)}
 			</div>
-			<div className={classes['slider-container']}>
+			<div className="border-box px-6 xl:px-20">
 				<Slider
-					className={classes['slider']}
 					min={sliderMin}
 					max={sliderMax}
 					value={forecastSlider}
