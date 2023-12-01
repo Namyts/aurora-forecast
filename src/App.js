@@ -19,6 +19,7 @@ const getDayName = d => {
 	const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
 	return d && weekday[d.getDay()]
 }
+const pad0 = o => o.toString().padStart(2,'0')
 
 const loadImage = url => new Promise((resolve,reject)=>{
 	const img = new Image()
@@ -34,12 +35,12 @@ const getForecastImage = (d, slider=1, type='lowmid') => {
 		d = addMinutes(d,sliderToMinutes(slider-12)) //this is assuming a 60 minute Forecast Lead Time
 		if(!d){return ''}
 		let url = `https://services.swpc.noaa.gov/images/animations/ovation/north`
-		url += `/aurora_N_${d.getFullYear().toString()}-${d.getMonth()+1}-${d.getDate()}_${d.getHours().toString().padStart(2,'0')}${d.getMinutes().toString().padStart(2,'0')}.jpg`
+		url += `/aurora_N_${d.getFullYear()}-${pad0(d.getMonth()+1)}-${pad0(d.getDate())}_${pad0(d.getHours())}${pad0(d.getMinutes())}.jpg`
 		return url
 	} else {
 		let url = `https://en.vedur.is/photos`
 		url += `/${forecastOptions.find(fo=>fo.id===type)?.url}`
-		url += `/${d.getFullYear().toString().slice(2)}${d.getMonth()+1}${d.getDate()}_${d.getHours().toString().padStart(2,'0')}00_${slider}.png`
+		url += `/${d.getFullYear().toString().slice(2)}${pad0(d.getMonth()+1)}${pad0(d.getDate())}_${pad0(d.getHours())}00_${slider}.png`
 		return url
 	}
 }
