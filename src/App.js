@@ -155,7 +155,7 @@ const App = () => {
 	},[forecastStart,sliderMin,sliderMax,forecastType])
 
 	return (
-		<div className="box-border bg-gray-800 w-full h-screen min-w-full min-h-full flex flex-col justify-between items-stretch text-white select-none gap-y-2 p-2 pb-12">
+		<div className="box-border bg-gray-800 w-full h-screen min-w-full min-h-full flex flex-col justify-between items-stretch text-white select-none gap-y-2 p-2 pb-24 md:pb-12">
 			<div className="flex items-center justify-between">
 				<div className="transition duration-500 hover:bg-gray-900  cursor-pointer rounded" onClick={cycleForecastType}>
 					<div className="text-xl xl:text-3xl px-6 py-2 xl:px-20 xl:py-4">
