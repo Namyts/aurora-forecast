@@ -14,9 +14,10 @@
 	margin-top: -8px;
 }
 
-.rc-slider-step{
-	height: 16px;
+.rc-slider-mark{
+	top: 36px;
 }
+
 .rc-slider-dot{
 	height: 20px;
 	width: 20px;
